@@ -1,73 +1,40 @@
+import transport.Car;
+
 public class Main {
+    public static boolean summer = true;
     public static void main(String[] args) {
-        System.out.println("Методы задач ДЗ № 2_1");
-        task1_1();
-        task1_2();
-        task1_3();
-        System.out.println("\nМетоды задач ДЗ № 2_2");
-    }
-    public static void task1_1() {
-        System.out.println("Задача 1");
-        System.out.println("Для решения Задачи 1 используется конструктор без параметров(по-умолчанию)");
-        Car ladaGranta = new Car();
+
+        System.out.println("Задача 2_1");
+        System.out.println("Добавлены новые свойства в класс Car.");
+        Car ladaGranta = new Car("Lada", "Lada Granta", 1.7, "желтый", 2015, "Россия", "МКПП", "седан", "а001аа999",5,summer);
         System.out.println(ladaGranta);
-        builderOfCar(ladaGranta, "Lada", "Lada Granta", 1.7,"желтый",2015, "Россия");
-        System.out.println(ladaGranta);
-        Car audiA8 = new Car();
-        builderOfCar(audiA8, "Audi", "A8 50 L TDI quattro", 3.0, "черный", 2020, "Германия");
+        Car.Key lada = ladaGranta.new Key(false, false);
+        System.out.println(ladaGranta.getBrand() + lada);
+        Car audiA8 = new Car("Audi", "A8 50 L TDI quattro", 3.0, "черный", 2020, "Германия", "АКПП", "седан", "а002аа999", 5, !summer);
         System.out.println(audiA8);
-        Car bmwZ8 = new Car();
-        builderOfCar(bmwZ8, "BMW", "Z8", 3.0, "черный", 2021, "Германии");
+        Car.Key audi = audiA8.new Key(true, true);
+        System.out.println(audiA8.getBrand() + audi);
+        Car bmwZ8 = new Car("BMW", "Z8", 3.0, "черный", 2021, "Германия", "АКПП", "родстер", "а003аа999", 2, false);
         System.out.println(bmwZ8);
-        Car kiaSportage = new Car();
-        builderOfCar(kiaSportage, "KIA", "Sportage 4-го поколения", 2.4, "красный", 2018, "Южная Корея");
+        Car.Key bmw = bmwZ8.new Key(true, true);
+        System.out.println(bmwZ8.getBrand() + bmw);
+        Car kiaSportage = new Car("KIA", "Sportage 4-го поколения", 2.4, "красный", 2018, "Южная Корея", "АКПП", "внедорожник", "а004аа999", 5, false);
         System.out.println(kiaSportage);
-        Car hyundaiAvante = new Car();
-        builderOfCar(hyundaiAvante, "Hyunday", "Avante", 1.6, "оранжевый", 2016, "Южная Корея");
-        System.out.println(hyundaiAvante);
-    }
-    public static void task1_2() {
-        System.out.println("Задача 2");
-        System.out.println("Для решения Задачи 2 используется конструктор с параметрами. Все поля заполнены.");
-        Car ladaGranta = new Car("Lada", "Lada Granta", 1.7, "желтый", 2015, "Россия");
+        Car.Key kia = kiaSportage.new Key(false, true);
+        System.out.println(kiaSportage.getBrand() + kia);
+        Car hyundayAvante = new Car("Hyunday", "Avante", 1.6, "оранжевый", 2016, "Южная Корея", "МКПП", "седан", "а005аа999", 5, true);
+        System.out.println(hyundayAvante);
+        Car.Key hyunday = hyundayAvante.new Key(false, false);
+        System.out.println(hyundayAvante.getBrand() + hyunday);
+        System.out.println("Смена шин на сезонные");
+        changeTireToSeason(ladaGranta, 2);
         System.out.println(ladaGranta);
-        Car audiA8 = new Car("Audi", "A8 50 L TDI quattro", 3.0, "черный", 2020, "Германии");
-        System.out.println(audiA8);
-        Car bmwZ8 = new Car("BMW", "Z8", 3.0, "черный", 2021, "Германии");
-        System.out.println(bmwZ8);
-        Car kiaSportage = new Car("KIA", "Sportage 4-го поколения", 2.4, "красный", 2018, "Южная Корея");
-        System.out.println(kiaSportage);
-        Car hyundaiAvante = new Car("Hyundai", "Avante", 1.6, "оранжевый", 2016, "Южная Корея");
-        System.out.println(hyundaiAvante);
-    }
-    public static void task1_3() {
-        System.out.println("Задача 3");
-        System.out.println("Для решения Задачи 3 используется конструктор с параметрами и проверкой. Поля могут быть default.");
-        Car ladaGranta = new Car("",null, -1.7, "желтый", -2015, "Россия");
-        System.out.println(ladaGranta);
-        Car audiA8 = new Car("", "A8 50 L TDI quattro", 3.0, "черный", 2020, null);
-        System.out.println(audiA8);
-        Car bmwZ8 = new Car("", "", 3.0, "", 2021, "Германии");
-        System.out.println(bmwZ8);
-        Car kiaSportage = new Car("", "Sportage 4-го поколения", 2.4, "", -2018, "Южная Корея");
-        System.out.println(kiaSportage);
-        Car hyundaiAvante = new Car(null, "Avante", 0, "оранжевый", 2016, "");
-        System.out.println(hyundaiAvante);
+
     }
 
-    public static void builderOfCar(Car car,
-                                    String brand,
-                                    String model,
-                                    double engineVolume,
-                                    String color,
-                                    int year,
-                                    String country) {
-        car.setBrand(brand);
-        car.setModel(model);
-        car.setEngineVolume(engineVolume);
-        car.setColor(color);
-        car.setYear(year);
-        car.setCountry(country);
+    public static void changeTireToSeason(Car car, int monthNumber) {
+        if((monthNumber > 10 && monthNumber <= 12) || (monthNumber > 0 && monthNumber < 4)) {
+            car.setTiresWinterFalseSummerTrue(!summer);
+        }
     }
-
 }
